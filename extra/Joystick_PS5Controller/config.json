@@ -1,0 +1,295 @@
+{
+  "name": "PS5 Controller",
+  "components": [
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        1525,
+        235
+      ],
+      "sizePx": [
+        150,
+        150
+      ],
+      "sourceIndex": 1
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        1390,
+        370
+      ],
+      "sizePx": [
+        150,
+        150
+      ],
+      "sourceIndex": 2
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        1525,
+        510
+      ],
+      "sizePx": [
+        150,
+        150
+      ],
+      "sourceIndex": 3
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        1665,
+        370
+      ],
+      "sizePx": [
+        150,
+        150
+      ],
+      "sourceIndex": 4
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        200,
+        150
+      ],
+      "sizePx": [
+        355,
+        100
+      ],
+      "sourceIndex": 5
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        1800,
+        150
+      ],
+      "sizePx": [
+        355,
+        100
+      ],
+      "sourceIndex": 6
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        200,
+        50
+      ],
+      "sizePx": [
+        355,
+        100
+      ],
+      "sourceIndex": 7
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        1800,
+        50
+      ],
+      "sizePx": [
+        355,
+        100
+      ],
+      "sourceIndex": 8
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        520,
+        150
+      ],
+      "sizePx": [
+        100,
+        160
+      ],
+      "sourceIndex": 9
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        1380,
+        150
+      ],
+      "sizePx": [
+        100,
+        160
+      ],
+      "sourceIndex": 10
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        950,
+        610
+      ],
+      "sizePx": [
+        130,
+        130
+      ],
+      "sourceIndex": 13
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        950,
+        250
+      ],
+      "sizePx": [
+        600,
+        400
+      ],
+      "sourceIndex": 14
+    },
+    {
+      "type": "axis",
+      "isYellow": false,
+      "centerPx": [
+        -100,
+        600
+      ],
+      "sizePx": [
+        140,
+        400
+      ],
+      "sourceIndex": 3,
+      "sourceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "type": "axis",
+      "isYellow": false,
+      "centerPx": [
+        2000,
+        550
+      ],
+      "sizePx": [
+        140,
+        400
+      ],
+      "sourceIndex": 4,
+      "sourceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "type": "joystick",
+      "isYellow": true,
+      "centerPx": [
+        650,
+        630
+      ],
+      "radiusPx": 160,
+      "xSourceIndex": 0,
+      "xSourceInverted": false,
+      "ySourceIndex": 1,
+      "ySourceInverted": true,
+      "buttonSourceIndex": 11
+    },
+    {
+      "type": "joystick",
+      "isYellow": true,
+      "centerPx": [
+        1241,
+        630
+      ],
+      "radiusPx": 160,
+      "xSourceIndex": 2,
+      "xSourceInverted": false,
+      "ySourceIndex": 5,
+      "ySourceInverted": true,
+      "buttonSourceIndex": 12
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        369,
+        270
+      ],
+      "sizePx": [
+        120,
+        120
+      ],
+      "sourceIndex": 0,
+      "sourcePov": "up"
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        490,
+        400
+      ],
+      "sizePx": [
+        120,
+        120
+      ],
+      "sourceIndex": 0,
+      "sourcePov": "right"
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        369,
+        520
+      ],
+      "sizePx": [
+        120,
+        120
+      ],
+      "sourceIndex": 0,
+      "sourcePov": "down"
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        250,
+        400
+      ],
+      "sizePx": [
+        120,
+        120
+      ],
+      "sourceIndex": 0,
+      "sourcePov": "left"
+    }
+  ]
+}

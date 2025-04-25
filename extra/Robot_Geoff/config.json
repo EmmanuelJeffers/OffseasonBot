@@ -1,0 +1,41 @@
+{
+  "name": "Geoff",
+  "sourceUrl": "",
+  "rotations": [
+    {
+      "axis": "x",
+      "degrees": 90
+    },
+    {
+      "axis": "z",
+      "degrees": 90
+    }
+  ],
+  "position": [
+    -0.57,
+    -0.37,
+    0.29
+  ],
+  "cameras": [
+    {
+      "name": "limelight_front",
+      "rotations": [
+        {
+          "axis": "y",
+          "degrees": 20
+        }
+      ],
+      "position": [
+        0.2,
+        0,
+        0.8
+      ],
+      "resolution": [
+        960,
+        720
+      ],
+      "fov": 100
+    }
+  ],
+  "components": []
+}

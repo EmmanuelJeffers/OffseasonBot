@@ -1,0 +1,295 @@
+{
+  "name": "Steam Deck",
+  "components": [
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        1393,
+        125
+      ],
+      "sizePx": [
+        50,
+        50
+      ],
+      "sourceIndex": 1
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        1354,
+        170
+      ],
+      "sizePx": [
+        50,
+        50
+      ],
+      "sourceIndex": 2
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        1393,
+        205
+      ],
+      "sizePx": [
+        50,
+        50
+      ],
+      "sourceIndex": 3
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        1433,
+        170
+      ],
+      "sizePx": [
+        50,
+        50
+      ],
+      "sourceIndex": 4
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        200,
+        50
+      ],
+      "sizePx": [
+        355,
+        50
+      ],
+      "sourceIndex": 5
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        1300,
+        -10
+      ],
+      "sizePx": [
+        355,
+        50
+      ],
+      "sourceIndex": 6
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        200,
+        -10
+      ],
+      "sizePx": [
+        355,
+        50
+      ],
+      "sourceIndex": 7
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        1300,
+        50
+      ],
+      "sizePx": [
+        355,
+        50
+      ],
+      "sourceIndex": 8
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        238,
+        112
+      ],
+      "sizePx": [
+        50,
+        30
+      ],
+      "sourceIndex": 9
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        1317,
+        112
+      ],
+      "sizePx": [
+        50,
+        30
+      ],
+      "sourceIndex": 10
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": true,
+      "centerPx": [
+        320,
+        465
+      ],
+      "sizePx": [
+        100,
+        50
+      ],
+      "sourceIndex": 13
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        775,
+        350
+      ],
+      "sizePx": [
+        600,
+        400
+      ],
+      "sourceIndex": 14
+    },
+    {
+      "type": "axis",
+      "isYellow": false,
+      "centerPx": [
+        -100,
+        600
+      ],
+      "sizePx": [
+        140,
+        400
+      ],
+      "sourceIndex": 3,
+      "sourceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "type": "axis",
+      "isYellow": false,
+      "centerPx": [
+        2000,
+        550
+      ],
+      "sizePx": [
+        140,
+        400
+      ],
+      "sourceIndex": 4,
+      "sourceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "type": "joystick",
+      "isYellow": true,
+      "centerPx": [
+        295,
+        190
+      ],
+      "radiusPx": 50,
+      "xSourceIndex": 0,
+      "xSourceInverted": false,
+      "ySourceIndex": 1,
+      "ySourceInverted": true,
+      "buttonSourceIndex": 11
+    },
+    {
+      "type": "joystick",
+      "isYellow": true,
+      "centerPx": [
+        1255,
+        190
+      ],
+      "radiusPx": 50,
+      "xSourceIndex": 2,
+      "xSourceInverted": false,
+      "ySourceIndex": 5,
+      "ySourceInverted": true,
+      "buttonSourceIndex": 12
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        160,
+        120
+      ],
+      "sizePx": [
+        50,
+        50
+      ],
+      "sourceIndex": 0,
+      "sourcePov": "up"
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        220,
+        160
+      ],
+      "sizePx": [
+        50,
+        50
+      ],
+      "sourceIndex": 0,
+      "sourcePov": "right"
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        160,
+        200
+      ],
+      "sizePx": [
+        50,
+        50
+      ],
+      "sourceIndex": 0,
+      "sourcePov": "down"
+    },
+    {
+      "type": "button",
+      "isYellow": true,
+      "isEllipse": false,
+      "centerPx": [
+        100,
+        160
+      ],
+      "sizePx": [
+        50,
+        50
+      ],
+      "sourceIndex": 0,
+      "sourcePov": "left"
+    }
+  ]
+}
