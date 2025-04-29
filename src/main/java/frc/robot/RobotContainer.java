@@ -33,8 +33,8 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
  */
 public class RobotContainer {
   // Subsystems
-  private final Drive drive;
-  private final Vision vision;
+  private Drive drive;
+  private Vision vision;
 
   // Controller
   private final CommandPS5Controller controller = new CommandPS5Controller(0);
@@ -44,73 +44,54 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-
-    // if (Constants.getMode() != Constants.Mode.REPLAY) {
-    //     switch (Constants.getRobot()) {
-    //         case COMPBOT -> {
-    //             drive =
-    //                 new Drive(
-    //                     new GyroIOPigeon2(), 
-    //                     new ModuleIOTalonFX(TunerConstants.FrontLeft), 
-    //                     new ModuleIOTalonFX(TunerConstants.FrontRight), 
-    //                     new ModuleIOTalonFX(TunerConstants.BackLeft), 
-    //                     new ModuleIOTalonFX(TunerConstants.BackRight));
-    //             vision =
-    //                 new Vision(
-    //                     drive::addVisionMeasurement, 
-    //                     new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation));
-    //         }
-
-    //         case SIMBOT -> {
-    //             drive =
-    //                 new Drive(
-    //                     new GyroIO() {}, 
-    //                     new ModuleIOSim(TunerConstants.FrontLeft), 
-    //                     new ModuleIOSim(TunerConstants.FrontRight), 
-    //                     new ModuleIOSim(TunerConstants.BackLeft), 
-    //                     new ModuleIOSim(TunerConstants.BackRight));
-    //             vision =
-    //                 new Vision(
-    //                     new VisionIOPhotonVisionSim(
-    //                         VisionConstants.camera0Name, VisionConstants.robotToCamera0, drive::getPose));
-    //         }
-    //     }
-    // }
-
-    switch (Constants.currentMode) {
-      case REAL:
-        // Real robot, instantiate hardware IO implementations
-        drive =
-            new Drive(
-                new GyroIOPigeon2(),
-                new ModuleIOTalonFX(TunerConstants.FrontLeft),
-                new ModuleIOTalonFX(TunerConstants.FrontRight),
-                new ModuleIOTalonFX(TunerConstants.BackLeft),
-                new ModuleIOTalonFX(TunerConstants.BackRight));
-        vision =
-            new Vision(
-                drive::addVisionMeasurement,
-                new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation));
-        break;
-
-      case SIM:
-        // Sim robot, instantiate physics sim IO implementations
-        drive =
-            new Drive(
-                new GyroIO() {},
-                new ModuleIOSim(TunerConstants.FrontLeft),
-                new ModuleIOSim(TunerConstants.FrontRight),
-                new ModuleIOSim(TunerConstants.BackLeft),
-                new ModuleIOSim(TunerConstants.BackRight));
-        vision =
-            new Vision(
-                drive::addVisionMeasurement,
-                new VisionIOPhotonVisionSim(
-                    VisionConstants.camera0Name, VisionConstants.robotToCamera0, drive::getPose));
-        break;
-
-      default:
-        // Replayed robot, disable IO implementations
+    if (Constants.getMode() != Constants.Mode.REPLAY) {
+        switch (Constants.getRobot()) {
+          case COMPBOT -> {
+            drive =
+                new Drive(
+                    new GyroIOPigeon2(),
+                    new ModuleIOTalonFX(TunerConstants.FrontLeft),
+                    new ModuleIOTalonFX(TunerConstants.FrontRight),
+                    new ModuleIOTalonFX(TunerConstants.BackLeft),
+                    new ModuleIOTalonFX(TunerConstants.BackRight));
+            vision =
+                new Vision(
+                    drive::addVisionMeasurement,
+                    new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation));
+          }
+          case DEVBOT -> {
+            drive =
+                new Drive(
+                    new GyroIOPigeon2(),
+                    new ModuleIOTalonFX(TunerConstants.FrontLeft),
+                    new ModuleIOTalonFX(TunerConstants.FrontRight),
+                    new ModuleIOTalonFX(TunerConstants.BackLeft),
+                    new ModuleIOTalonFX(TunerConstants.BackRight));
+            vision =
+                new Vision(
+                    drive::addVisionMeasurement,
+                    new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation));
+          }
+          case SIMBOT -> {
+            drive =
+                new Drive(
+                    new GyroIO() {},
+                    new ModuleIOSim(TunerConstants.FrontLeft),
+                    new ModuleIOSim(TunerConstants.FrontRight),
+                    new ModuleIOSim(TunerConstants.BackLeft),
+                    new ModuleIOSim(TunerConstants.BackRight));
+            vision =
+                new Vision(
+                    drive::addVisionMeasurement,
+                    new VisionIOPhotonVisionSim(
+                        VisionConstants.camera0Name, VisionConstants.robotToCamera0, drive::getPose),
+                    new VisionIOPhotonVisionSim(
+                        VisionConstants.camera1Name, VisionConstants.robotToCamera1, drive::getPose));
+        }
+      }
+  
+      // No-op implementations for replay
+      if (drive == null) {
         drive =
             new Drive(
                 new GyroIO() {},
@@ -118,9 +99,21 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
-        vision = new Vision(drive::addVisionMeasurement, new VisionIO() {}, new VisionIO() {});
-        break;
-    }
+      }
+      if (vision == null) {
+        switch (Constants.getRobot()) {
+          case COMPBOT ->
+              vision =
+                  new Vision(
+                      drive::addVisionMeasurement,
+                      new VisionIO() {},
+                      new VisionIO() {},
+                      new VisionIO() {});
+          case DEVBOT -> vision = new Vision(drive::addVisionMeasurement, new VisionIO() {});
+          default -> vision = new Vision(drive::addVisionMeasurement);
+        }
+      }
+  }
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
