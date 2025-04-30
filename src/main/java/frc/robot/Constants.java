@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj.RobotBase;
  * (log replay from a file).
  */
 public final class Constants {
-  public static final Mode simMode = Mode.SIM;
-  public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
   public static final double loopPeriodSecs = 0.02;
   private static RobotType robotType = RobotType.SIMBOT;
   public static final boolean tuningMode = false;
