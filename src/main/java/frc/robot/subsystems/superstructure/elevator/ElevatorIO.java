@@ -1,8 +1,40 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems.superstructure.elevator;
 
-/** Add your docs here. */
-public class ElevatorIO {}
+import org.littletonrobotics.junction.AutoLog;
+
+public interface ElevatorIO {
+  @AutoLog
+  class ElevatorIOInputs {
+    public ElevatorIOData data =
+        new ElevatorIOData(false, false, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+  }
+
+  record ElevatorIOData(
+      boolean motorConnected,
+      boolean followerConnected,
+      double positionRad,
+      double velocityRadPerSec,
+      double appliedVolts,
+      double torqueCurrentAmps,
+      double supplyCurrentAmps,
+      double tempCelsius,
+      double followerAppliedVolts,
+      double followerTorqueCurrentAmps,
+      double followerSupplyCurrentAmps,
+      double followerTempCelsius) {}
+
+  default void updateInputs(ElevatorIOInputs inputs) {}
+
+  default void runOpenLoop(double output) {}
+
+  default void runVolts(double volts) {}
+
+  default void stop() {}
+
+  /** Run elevator output shaft to positionRad with additional feedforward output */
+  default void runPosition(double positionRad, double feedforward) {}
+
+  default void setPID(double kP, double kI, double kD) {}
+
+  default void setBrakeMode(boolean enabled) {}
+}

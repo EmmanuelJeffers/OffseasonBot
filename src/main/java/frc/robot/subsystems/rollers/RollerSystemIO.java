@@ -7,10 +7,10 @@ package frc.robot.subsystems.rollers;
 import org.littletonrobotics.junction.AutoLog;
 
 /** Add your docs here. */
-public class RollerSystemIO {
+public interface RollerSystemIO {
     @AutoLog
     public class RollerSystemIOInputs {
-        public RollerSystemIOData data = new RollerSystemIOData();
+        public RollerSystemIOData data = new RollerSystemIOData(0, 0, 0, 0, 0, 0, false, false);
     }
 
     record RollerSystemIOData(
