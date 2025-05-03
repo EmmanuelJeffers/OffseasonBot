@@ -1,10 +1,10 @@
-package frc.robot.subsystems.intake;
+package frc.robot.subsystems.superstructure.pivot;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends SubsystemBase {
-  /** Creates a new Intake. */
-  public Intake() {}
+public class Pivot extends SubsystemBase {
+  /** Creates a new Pivot. */
+  public Pivot() {}
 
   @Override
   public void periodic() {
