@@ -1,4 +1,4 @@
-package frc.robot.subsystems.superstructure.pivot;
+package frc.robot.subsystems.superstructure.endeffecter;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import org.littletonrobotics.junction.AutoLog;

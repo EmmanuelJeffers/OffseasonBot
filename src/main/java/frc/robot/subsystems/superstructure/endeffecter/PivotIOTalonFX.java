@@ -1,4 +1,4 @@
-package frc.robot.subsystems.superstructure.pivot;
+package frc.robot.subsystems.superstructure.endeffecter;
 
 import static edu.wpi.first.units.Units.*;
 import static frc.robot.util.PhoenixUtil.tryUntilOk;
@@ -24,8 +24,8 @@ import frc.robot.util.PhoenixUtil;
 
 public class PivotIOTalonFX implements PivotIO {
   private static final double reduction = (80.0 / 10.0) * (82.0 / 20.0);
-  private static final Rotation2d encoderOffset = Rotation2d.fromRadians(2.6860003595877577);
-  private static final int encoderId = 50;
+  private static final Rotation2d encoderOffset = Rotation2d.fromRadians(0.0);
+  private static final int encoderId = 42;
 
   // Hardware
   private final TalonFX talon;
