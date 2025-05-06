@@ -1,5 +1,6 @@
 package frc.robot.subsystems.superstructure;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
@@ -14,6 +15,7 @@ public class SuperStructureConstants {
     public static double stageToStage = Units.inchesToMeters(0.0);
 
     // 2d position of superstructure orgin on robot (x forward from center, y off the ground)
+    public static final Rotation2d elevatorAngle = Rotation2d.fromDegrees(0.0);
     public static final Translation2d superstructureOrigin2d = new Translation2d();
     public static final Translation3d superstructureOrigin3d =
         new Translation3d(superstructureOrigin2d.getX(), 0.0, superstructureOrigin2d.getY());
