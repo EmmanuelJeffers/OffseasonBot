@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import frc.robot.util.LoggedTunableNumber;
 
 /** Add your docs here. */
 public class SuperStructureConstants {
@@ -12,6 +13,8 @@ public class SuperStructureConstants {
     public static double firstStageHeight = Units.inchesToMeters(0.0);
     public static double stageHeight = Units.inchesToMeters(0.0);
     public static double stageThickness = Units.inchesToMeters(0.0);
+    public static double endeffecterToTop = Units.inchesToMeters(0.0);
+    public static double endeffecterToBottom = Units.inchesToMeters(0.0);
     public static double stageToStage = Units.inchesToMeters(0.0);
 
     // 2d position of superstructure orgin on robot (x forward from center, y off the ground)
@@ -22,5 +25,12 @@ public class SuperStructureConstants {
 
     // TODO: get elevator travel distances
     public static final double elevatorMaxTravel = Units.inchesToMeters(0.0);
+
     public static double stage1ToStage2Height = Units.inchesToMeters(0.0);
+    public static double stage2ToStage3Height = Units.inchesToMeters(0.0);
+
+    public static final LoggedTunableNumber pivotMaxSafeAngleDeg =
+        new LoggedTunableNumber("Superstructure/PivotMaxSafeAngleDegrees", 0.0);
+    public static final LoggedTunableNumber elevatorL4ClearHeight =
+        new LoggedTunableNumber("Superstructure/ElevatorL4ClearHeight", 1.65);
 }

@@ -55,8 +55,34 @@ public class PivotIOSim implements PivotIO {
       // Run control at 1khz
       for (int i = 0; i < Constants.loopPeriodSecs / (1.0 / 1000.0); i++) {
         setInputVoltage(controller.calculate(simState.get(0)) + feedforward);
+        update(1.0 / 1000.0);
       }
     }
+
+    // Pivot
+    inputs.data =
+      new PivotIOData(
+        true,
+        true, 
+        Rotation2d.fromRadians(simState.get(0) - EndEffecter.maxAngle.getRadians()), 
+        Rotation2d.fromRadians(simState.get(0)), 
+        simState.get(0), 
+        simState.get(1), 
+        pivotAppliedVolts, 
+        (pivotAppliedVolts / 12.0) * inputTorqueCurrent, 
+        inputTorqueCurrent, 
+        0.0);
+  }
+
+  @Override
+  public void runOpenLoop(double output) {
+    closedLoop = false;
+    setInputTorqueCurrent(output);
+  }
+
+  @Override
+  public void setPID(double kP, double kI, double kD) {
+    controller.setPID(kP, kI, kD);
   }
 
   private void setInputTorqueCurrent(double torqueCurrent) {
