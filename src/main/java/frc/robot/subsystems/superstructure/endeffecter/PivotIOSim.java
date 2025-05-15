@@ -14,7 +14,7 @@ import edu.wpi.first.math.system.NumericalIntegration;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import frc.robot.Constants;
-import frc.robot.subsystems.superstructure.SuperStructureConstants;
+import frc.robot.subsystems.superstructure.SuperstructureConstants;
 
 public class PivotIOSim implements PivotIO {
   private static final double reduction = 64.5;
@@ -104,10 +104,10 @@ public class PivotIOSim implements PivotIO {
               Matrix<N2, N1> xdot = A.times(x).plus(B.times(u));
               // Add gravity
               xdot.plus(
-                  -SuperStructureConstants.G
+                  -SuperstructureConstants.G
                       * cgRadius
                       * Rotation2d.fromRadians(simState.get(0))
-                          .minus(SuperStructureConstants.elevatorAngle)
+                          .minus(SuperstructureConstants.elevatorAngle)
                           .getCos()
                       / moi);
               return xdot;

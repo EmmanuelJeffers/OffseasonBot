@@ -3,15 +3,19 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Alert.AlertType;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
 import frc.robot.generated.TunerConstants;
@@ -22,11 +26,18 @@ import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOTalonFX;
 import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.rollers.RollerSystemIO;
+import frc.robot.subsystems.rollers.RollerSystemIOSim;
 import frc.robot.subsystems.rollers.RollerSystemIOTalonFX;
-import frc.robot.subsystems.superstructure.SuperStructure;
+import frc.robot.subsystems.sensors.CoralSensorIO;
+import frc.robot.subsystems.superstructure.Superstructure;
 import frc.robot.subsystems.superstructure.elevator.Elevator;
+import frc.robot.subsystems.superstructure.elevator.ElevatorIO;
+import frc.robot.subsystems.superstructure.elevator.ElevatorIOSim;
 import frc.robot.subsystems.superstructure.elevator.ElevatorIOTalonFX;
 import frc.robot.subsystems.superstructure.endeffecter.EndEffecter;
+import frc.robot.subsystems.superstructure.endeffecter.PivotIO;
+import frc.robot.subsystems.superstructure.endeffecter.PivotIOSim;
 import frc.robot.subsystems.superstructure.endeffecter.PivotIOTalonFX;
 import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.vision.VisionConstants;
@@ -46,11 +57,15 @@ public class RobotContainer {
   // Subsystems
   private Drive drive;
   private Vision vision;
+  private final Superstructure superstructure;
+  private Intake intake;
 
   // Controller
   private final CommandPS5Controller controller = new CommandPS5Controller(0);
 
-  private final Alert driverDisconnected = new Alert("Driver controller disconnected (port 0).", AlertType.kWarning);
+  private final Alert controllerDisconnected = new Alert("Controller disconnected (port 0).", AlertType.kWarning);
+//   private final Alert deadInTheWaterAlert = new Alert("Please select an auto routine!!! 😳", AlertType.kWarning);
+  private final Trigger superstructureCoast = new Trigger(() -> controller.getHID().getRawButton(15));
 
   private boolean coastOverride = false;
 
@@ -77,6 +92,13 @@ public class RobotContainer {
                     drive::addVisionMeasurement,
                     new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation));
             elevator = new Elevator(new ElevatorIOTalonFX());
+            endEffecter =
+                new EndEffecter(
+                    new PivotIOTalonFX(), 
+                    new RollerSystemIOTalonFX(1, "", 0, coastOverride, false, 1.0),
+                    new CoralSensorIO() {});
+            intake = new Intake();
+
           }
           case DEVBOT -> {
             drive =
@@ -90,6 +112,13 @@ public class RobotContainer {
                 new Vision(
                     drive::addVisionMeasurement,
                     new VisionIOLimelight(VisionConstants.camera0Name, drive::getRotation));
+            elevator = new Elevator(new ElevatorIOTalonFX());
+            endEffecter =
+                new EndEffecter(
+                    new PivotIOTalonFX(), 
+                    new RollerSystemIOTalonFX(1, "", 0, coastOverride, false, 1.0),
+                    new CoralSensorIO() {});
+            intake = new Intake();
           }
           case SIMBOT -> {
             drive =
@@ -106,33 +135,54 @@ public class RobotContainer {
                         VisionConstants.camera0Name, VisionConstants.robotToCamera0, drive::getPose),
                     new VisionIOPhotonVisionSim(
                         VisionConstants.camera1Name, VisionConstants.robotToCamera1, drive::getPose));
+            elevator = new Elevator(new ElevatorIOSim());
+            endEffecter =
+                new EndEffecter(
+                    new PivotIOSim(), 
+                    new RollerSystemIOSim(DCMotor.getKrakenX60Foc(1), 1.0, 0.0), 
+                    new CoralSensorIO() {});
+            intake = new Intake();
         }
       }
+    }
   
-      // No-op implementations for replay
-      if (drive == null) {
-        drive =
-            new Drive(
-                new GyroIO() {},
-                new ModuleIO() {},
-                new ModuleIO() {},
-                new ModuleIO() {},
-                new ModuleIO() {});
-      }
-      if (vision == null) {
+    // No-op implementations for replay
+    if (drive == null) {
+    drive =
+        new Drive(
+            new GyroIO() {},
+            new ModuleIO() {},
+            new ModuleIO() {},
+            new ModuleIO() {},
+            new ModuleIO() {});
+    }
+    if (vision == null) {
         switch (Constants.getRobot()) {
-          case COMPBOT ->
-              vision =
-                  new Vision(
-                      drive::addVisionMeasurement,
-                      new VisionIO() {},
-                      new VisionIO() {},
-                      new VisionIO() {});
-          case DEVBOT -> vision = new Vision(drive::addVisionMeasurement, new VisionIO() {});
-          default -> vision = new Vision(drive::addVisionMeasurement);
+            case COMPBOT ->
+                vision =
+                    new Vision(
+                        drive::addVisionMeasurement,
+                        new VisionIO() {},
+                        new VisionIO() {},
+                        new VisionIO() {});
+            case DEVBOT -> vision = new Vision(drive::addVisionMeasurement, new VisionIO() {});
+            default -> vision = new Vision(drive::addVisionMeasurement);
         }
-      }
-  }
+    }
+    if (elevator == null) {
+        elevator = new Elevator(new ElevatorIO() {});
+    }
+    if (endEffecter == null) {
+        endEffecter = 
+            new EndEffecter(new PivotIO() {}, 
+            new RollerSystemIO() {},
+            new CoralSensorIO() {});
+    }
+    if (intake == null) {
+        intake = 
+            new Intake();
+    }
+    superstructure = new Superstructure(elevator, endEffecter);
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -152,6 +202,22 @@ public class RobotContainer {
         "Drive SysId (Dynamic Forward)", drive.sysIdDynamic(SysIdRoutine.Direction.kForward));
     autoChooser.addOption(
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+    autoChooser.addOption(
+        "Elevator Static Up",
+        superstructure.setCharacterizationMode().andThen(elevator.upStaticCharacterization()));
+    autoChooser.addOption(
+        "Elevator Static Down",
+        superstructure.setCharacterizationMode().andThen(elevator.downStaticCharacterization()));
+    autoChooser.addOption(
+        "Pivot static",
+        superstructure.setCharacterizationMode().andThen(endEffecter.staticCharacterization()));
+
+    // Set up overrides
+    superstructure.setDisabledOverride(controller.PS());
+    elevator.setOverrides(() -> coastOverride, controller.PS());
+    endEffecter.setOverrides(() -> coastOverride, controller.PS());
+
+    // TODO: Set up communictaion for superstructure and intake
 
     // Configure the button bindings
     configureButtonBindings();
@@ -180,10 +246,10 @@ public class RobotContainer {
                 drive,
                 () -> -controller.getLeftY(),
                 () -> -controller.getLeftX(),
-                () -> new Rotation2d()));
+                () -> new Rotation2d()).withName("Snap Robot to 0°"));
 
     // Switch to X pattern when X button is pressed
-    controller.L3().onTrue(Commands.runOnce(drive::stopWithX, drive));
+    controller.L3().onTrue(Commands.runOnce(drive::stopWithX, drive).withName("Lock Wheels"));
 
     // Reset gyro to 0° when B button is pressed
     controller
@@ -194,12 +260,64 @@ public class RobotContainer {
                         drive.setPose(
                             new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
                     drive)
+                .ignoringDisable(true).withName("Gyro Reset to 0°"));
+
+    // Superstructure coast
+    superstructureCoast
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                    if (DriverStation.isDisabled()) {
+                        coastOverride = true;
+                    }
+                })
+                .withName("Superstructure Coast")
+                .ignoringDisable(true))
+        .onFalse(
+            Commands.runOnce(
+                () -> {
+                    coastOverride = false;
+                })
+                .withName("Superstructure Uncoast")
                 .ignoringDisable(true));
+    RobotModeTriggers.disabled()
+        .onFalse(
+            Commands.runOnce(
+                () -> {
+                    coastOverride = false;
+                })
+                .ignoringDisable(true));
+
+    // Coral grabbed alert
+    new Trigger(superstructure::hasCoral)
+        .onTrue(controllerRumbleCommand()
+        .withTimeout(0.25));
+
+    // Algae grabbed alert
+    new Trigger(superstructure::hasAlage)
+        .onTrue(controllerRumbleCommand()
+        .withTimeout(0.25));
+  }
+
+  // Creates controller rumble command
+  private Command controllerRumbleCommand() {
+    return Commands.startEnd(
+        () -> {
+            controller.getHID().setRumble(RumbleType.kBothRumble, 1.0);
+        }, 
+        () -> {
+            controller.getHID().setRumble(RumbleType.kBothRumble, 0.0);
+        });
   }
 
   // Update dashboard data
   public void updateDashboardOutputs() {
     SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
+  }
+
+  public void updateAlerts() {
+    // Controller disconnect alerts
+    controllerDisconnected.set(!DriverStation.isJoystickConnected(controller.getHID().getPort()));
   }
 
   /**

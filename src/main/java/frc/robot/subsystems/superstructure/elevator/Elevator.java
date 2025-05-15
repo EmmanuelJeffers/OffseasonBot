@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotState;
-import frc.robot.subsystems.superstructure.SuperStructureConstants;
+import frc.robot.subsystems.superstructure.SuperstructureConstants;
 import frc.robot.util.EqualsUtil;
 import frc.robot.util.LoggedTracer;
 import frc.robot.util.LoggedTunableNumber;
@@ -191,17 +191,17 @@ public class Elevator extends SubsystemBase {
       // Clamp goal
       var goalState =
           new State(
-              MathUtil.clamp(goal.get().position, 0.0, SuperStructureConstants.elevatorMaxTravel),
+              MathUtil.clamp(goal.get().position, 0.0, SuperstructureConstants.elevatorMaxTravel),
               goal.get().velocity);
       double previousVelocity = setpoint.velocity;
       setpoint =
           (hasAlgae && !forceFastConstraints ? algaeProfile : profile)
               .calculate(Constants.loopPeriodSecs, setpoint, goalState);
       if (setpoint.position < 0.0
-          || setpoint.position > SuperStructureConstants.elevatorMaxTravel) {
+          || setpoint.position > SuperstructureConstants.elevatorMaxTravel) {
         setpoint =
             new State(
-                MathUtil.clamp(setpoint.position, 0.0, SuperStructureConstants.elevatorMaxTravel),
+                MathUtil.clamp(setpoint.position, 0.0, SuperstructureConstants.elevatorMaxTravel),
                 0.0);
       }
 
@@ -245,7 +245,7 @@ public class Elevator extends SubsystemBase {
     // Set extension in robot state
     RobotState.getInstance()
         .setElevatorExtensionPercent(
-            getPositionMeters() / SuperStructureConstants.elevatorMaxTravel);
+            getPositionMeters() / SuperstructureConstants.elevatorMaxTravel);
 
     // Log state
     Logger.recordOutput("Elevator/CoastOverride", coastOverride.getAsBoolean());
@@ -369,9 +369,9 @@ public class Elevator extends SubsystemBase {
 
   @AutoLogOutput(key = "Elevator/MeasuredStage")
   public int getStage() {
-    if (getPositionMeters() <= SuperStructureConstants.stage1ToStage2Height) {
+    if (getPositionMeters() <= SuperstructureConstants.stage1ToStage2Height) {
       return 0;
-    } else if (getPositionMeters() <= SuperStructureConstants.stage2ToStage3Height) {
+    } else if (getPositionMeters() <= SuperstructureConstants.stage2ToStage3Height) {
       return 1;
     } else {
       return 2;

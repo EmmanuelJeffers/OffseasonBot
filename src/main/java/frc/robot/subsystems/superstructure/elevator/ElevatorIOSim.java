@@ -13,7 +13,7 @@ import edu.wpi.first.math.system.NumericalIntegration;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import frc.robot.Constants;
-import frc.robot.subsystems.superstructure.SuperStructureConstants;
+import frc.robot.subsystems.superstructure.SuperstructureConstants;
 
 /** Add your docs here. */
 public class ElevatorIOSim implements ElevatorIO{
@@ -114,8 +114,8 @@ public class ElevatorIOSim implements ElevatorIO{
                         .plus(
                             VecBuilder.fill(
                                 0.0,
-                                -SuperStructureConstants.G
-                                    * SuperStructureConstants.elevatorAngle.getSin())),
+                                -SuperstructureConstants.G
+                                    * SuperstructureConstants.elevatorAngle.getSin())),
                 simState,
                 MatBuilder.fill(Nat.N1(), Nat.N1(), inputTorqueCurrent),
                 dt);
@@ -125,9 +125,9 @@ public class ElevatorIOSim implements ElevatorIO{
             simState.set(1, 0, 0.0);
             simState.set(0, 0, 0.0);
         }
-        if (simState.get(0) >= SuperStructureConstants.elevatorMaxTravel) {
+        if (simState.get(0) >= SuperstructureConstants.elevatorMaxTravel) {
             simState.set(1, 0, 0.0);
-            simState.set(0, 0, SuperStructureConstants.elevatorMaxTravel);
+            simState.set(0, 0, SuperstructureConstants.elevatorMaxTravel);
         }
     }
 }

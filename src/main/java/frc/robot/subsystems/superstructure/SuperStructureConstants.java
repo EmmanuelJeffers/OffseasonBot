@@ -7,7 +7,7 @@ import edu.wpi.first.math.util.Units;
 import frc.robot.util.LoggedTunableNumber;
 
 /** Add your docs here. */
-public class SuperStructureConstants {
+public class SuperstructureConstants {
     public static final double G = 9.807;
 
     public static double firstStageHeight = Units.inchesToMeters(0.0);
