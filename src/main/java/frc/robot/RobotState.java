@@ -13,9 +13,4 @@ public class RobotState {
         if (instance == null) instance = new RobotState();
         return instance;
     }
-
-    public void setElevatorExtensionPercent(double d) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setElevatorExtensionPercent'");
-    }
 }

@@ -243,9 +243,9 @@ public class Elevator extends SubsystemBase {
     }
 
     // Set extension in robot state
-    RobotState.getInstance()
-        .setElevatorExtensionPercent(
-            getPositionMeters() / SuperstructureConstants.elevatorMaxTravel);
+    // RobotState.getInstance()
+    //     .setElevatorExtensionPercent(
+    //         getPositionMeters() / SuperstructureConstants.elevatorMaxTravel);
 
     // Log state
     Logger.recordOutput("Elevator/CoastOverride", coastOverride.getAsBoolean());

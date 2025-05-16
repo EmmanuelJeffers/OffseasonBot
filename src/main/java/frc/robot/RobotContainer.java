@@ -65,7 +65,7 @@ public class RobotContainer {
 
   private final Alert controllerDisconnected = new Alert("Controller disconnected (port 0).", AlertType.kWarning);
 //   private final Alert deadInTheWaterAlert = new Alert("Please select an auto routine!!! 😳", AlertType.kWarning);
-  private final Trigger superstructureCoast = new Trigger(() -> controller.getHID().getRawButton(15));
+  private final Trigger superstructureCoast = new Trigger(() -> controller.getHID().getRawButtonPressed(15));
 
   private boolean coastOverride = false;
 
@@ -95,9 +95,9 @@ public class RobotContainer {
             endEffecter =
                 new EndEffecter(
                     new PivotIOTalonFX(), 
-                    new RollerSystemIOTalonFX(1, "", 0, coastOverride, false, 1.0),
+                    new RollerSystemIOTalonFX(2, "", 0, coastOverride, false, 1.0),
                     new CoralSensorIO() {});
-            intake = new Intake();
+            intake = new Intake(null, null, null, null);
 
           }
           case DEVBOT -> {
@@ -116,9 +116,9 @@ public class RobotContainer {
             endEffecter =
                 new EndEffecter(
                     new PivotIOTalonFX(), 
-                    new RollerSystemIOTalonFX(1, "", 0, coastOverride, false, 1.0),
+                    new RollerSystemIOTalonFX(2, "", 0, coastOverride, false, 1.0),
                     new CoralSensorIO() {});
-            intake = new Intake();
+            intake = new Intake(null, null, null, null);
           }
           case SIMBOT -> {
             drive =
@@ -139,9 +139,9 @@ public class RobotContainer {
             endEffecter =
                 new EndEffecter(
                     new PivotIOSim(), 
-                    new RollerSystemIOSim(DCMotor.getKrakenX60Foc(1), 1.0, 0.0), 
+                    new RollerSystemIOSim(DCMotor.getKrakenX60Foc(1), 1.0, 0.1), 
                     new CoralSensorIO() {});
-            intake = new Intake();
+            intake = new Intake(null, null, null, null);
         }
       }
     }
@@ -180,7 +180,7 @@ public class RobotContainer {
     }
     if (intake == null) {
         intake = 
-            new Intake();
+            new Intake(null, null, null, null);
     }
     superstructure = new Superstructure(elevator, endEffecter);
 

@@ -69,6 +69,7 @@ public class Superstructure extends SubsystemBase {
     isEStopped = (isEStopped || elevator.isShouldEStop() || endEffecter.isShouldEStop()) && Constants.getMode() == Mode.REAL;
     elevator.setEStopped(isEStopped);
     endEffecter.setEStopped(isEStopped);
+    
 
     // TODO: add sim intake here
 
